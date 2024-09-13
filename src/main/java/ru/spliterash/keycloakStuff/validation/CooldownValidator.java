@@ -1,7 +1,6 @@
 package ru.spliterash.keycloakStuff.validation;
 
 import com.google.auto.service.AutoService;
-import org.keycloak.models.RealmModel;
 import org.keycloak.models.UserModel;
 import org.keycloak.provider.ConfiguredProvider;
 import org.keycloak.provider.ProviderConfigProperty;
@@ -65,7 +64,7 @@ public class CooldownValidator extends AbstractStringValidator implements Config
             long timeLeftInSeconds = timeLeftInMillis / 1000;
             context.addError(new ValidationError(getId(), inputHint, MESSAGE_COOLDOWN_KEY, timeLeftInSeconds));
         } else {
-            targetUser.setSingleAttribute(lastUpdateAttributeKey, now.toString());
+            targetUser.setAttribute(lastUpdateAttributeKey, List.of(now.toString()));
         }
     }
 
