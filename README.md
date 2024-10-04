@@ -9,3 +9,7 @@
       переопределения локализации в Realm -> Localization -> Realm overrides
       
       Например: 'Вы сможете обновить {{0}} только через {{1}} секунд'
+* Расширение ресурса пользовательских аккаунтов
+  * `DELETE` `https://example.com/realms/{realm}/spliterash-account-extension/applications/{client}/access`
+  
+    Отозвать доступ к сессии у внутреннего клиента (ПОЧЕМУ ЭТОГО НЕТ В КОРОБКЕ ???)

@@ -1,4 +1,4 @@
-package ru.spliterash.keycloakStuff.authenticator.findByEmail;
+package ru.spliterash.keycloakStuff.authenticator.idpFindExistingBrokerUser;
 
 import org.jboss.logging.Logger;
 import org.keycloak.authentication.AuthenticationFlowContext;

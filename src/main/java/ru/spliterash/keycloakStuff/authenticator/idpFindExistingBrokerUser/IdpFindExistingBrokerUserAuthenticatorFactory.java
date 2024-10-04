@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package ru.spliterash.keycloakStuff.authenticator.findByEmail;
+package ru.spliterash.keycloakStuff.authenticator.idpFindExistingBrokerUser;
 
 import com.google.auto.service.AutoService;
 import org.keycloak.Config;

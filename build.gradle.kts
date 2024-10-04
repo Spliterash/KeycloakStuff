@@ -1,9 +1,10 @@
 plugins {
     java
+    id("io.freefair.lombok") version "8.10"
 }
 
 group = "ru.spliterash"
-version = "1.0.2"
+version = "1.0.3"
 
 repositories {
     mavenCentral()
@@ -11,7 +12,7 @@ repositories {
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 val autoServiceVersion = "1.1.1"
-val keycloakVersion = "24.0.3"
+val keycloakVersion = "26.0.0"
 
 dependencies {
     compileOnly("com.google.auto.service:auto-service:$autoServiceVersion")
