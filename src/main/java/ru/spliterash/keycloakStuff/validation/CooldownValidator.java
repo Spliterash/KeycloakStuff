@@ -5,6 +5,7 @@ import org.keycloak.models.UserModel;
 import org.keycloak.provider.ConfiguredProvider;
 import org.keycloak.provider.ProviderConfigProperty;
 import org.keycloak.userprofile.UserProfileAttributeValidationContext;
+import org.keycloak.userprofile.UserProfileContext;
 import org.keycloak.validate.*;
 
 import java.time.Instant;
@@ -38,7 +39,7 @@ public class CooldownValidator extends AbstractStringValidator implements Config
     protected void doValidate(String value, String inputHint, ValidationContext context, ValidatorConfig config) {
         if (!(context instanceof UserProfileAttributeValidationContext castedContext))
             throw new IllegalStateException("Only UserProfileAttributeValidationContext supported");
-        if (castedContext.getAttributeContext().getContext().isAdminContext()) return;
+        if (castedContext.getAttributeContext().getContext() != UserProfileContext.ACCOUNT) return;
 
         String attributeKey = castedContext.getAttributeContext().getMetadata().getName();
 
