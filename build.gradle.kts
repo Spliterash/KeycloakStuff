@@ -1,10 +1,11 @@
 plugins {
     java
     id("io.freefair.lombok") version "8.10"
+    kotlin("jvm")
 }
 
 group = "ru.spliterash"
-version = "1.0.5"
+version = "1.0.6"
 
 repositories {
     mavenCentral()
@@ -31,5 +32,9 @@ dependencies {
     compileOnly("jakarta.validation:jakarta.validation-api:3.0.2")
     compileOnly("jakarta.ws.rs:jakarta.ws.rs-api:3.1.0")
     compileOnly("jakarta.persistence:jakarta.persistence-api:3.1.0")
+    implementation(kotlin("stdlib-jdk8"))
 }
 
+kotlin {
+    jvmToolchain(17)
+}
