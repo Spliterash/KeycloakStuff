@@ -28,6 +28,7 @@ public class HttpRequestValidator extends AbstractStringValidator implements Con
 
     private static final String ONLY_ON_UPDATE = "only_on_update";
     private static final String SKIP_EMPTY = "skip_empty";
+    private static final String FAIL_PASS = "fail_pass";
 
 
     private static final List<ProviderConfigProperty> configProperties = new ArrayList<>();
@@ -75,6 +76,15 @@ public class HttpRequestValidator extends AbstractStringValidator implements Con
             property.setDefaultValue(true);
             configProperties.add(property);
         }
+        {
+            var property = new ProviderConfigProperty();
+            property.setName(FAIL_PASS);
+            property.setLabel("Fail pass");
+            property.setHelpText("Allow validation if target resource not answer (network problem / format)");
+            property.setType(ProviderConfigProperty.BOOLEAN_TYPE);
+            property.setDefaultValue(false);
+            configProperties.add(property);
+        }
     }
 
 
@@ -96,6 +106,10 @@ public class HttpRequestValidator extends AbstractStringValidator implements Con
         Boolean skipEmpty = config.getBoolean(SKIP_EMPTY);
         if (skipEmpty == null) skipEmpty = true;
         if (skipEmpty && (value == null || value.isBlank())) return;
+
+
+        Boolean failPass = config.getBoolean(FAIL_PASS);
+        if (failPass == null) failPass = false;
 
         HttpRequest.Builder request = HttpRequest
                 .newBuilder(URI.create(config.getString(URL)));
@@ -122,11 +136,13 @@ public class HttpRequestValidator extends AbstractStringValidator implements Con
             response = objectMapper.readValue(bodyRaw, ValidationResponse.class);
         } catch (JsonProcessingException e) {
             log.error("Failed to deserialize json: {}", bodyRaw, e);
-            context.addError(new ValidationError(getId(), inputHint, "Json deserialization failed"));
+            if (!failPass)
+                context.addError(new ValidationError(getId(), inputHint, "Json deserialization failed"));
             return;
         } catch (Exception exception) {
             log.error("Failed process http request validator", exception);
-            context.addError(new ValidationError(getId(), inputHint, "Failed to process validation request"));
+            if (!failPass)
+                context.addError(new ValidationError(getId(), inputHint, "Failed to process validation request"));
             return;
         }
 
