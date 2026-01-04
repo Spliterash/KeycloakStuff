@@ -29,10 +29,10 @@ import org.keycloak.provider.ProviderConfigProperty;
 import java.util.List;
 
 @AutoService(AuthenticatorFactory.class)
-public class IdpSetUsernameFromQueryParamAuthenticatorFactory implements AuthenticatorFactory {
+public class IdpSetAttributeFromQueryAuthenticatorFactory implements AuthenticatorFactory {
 
-    public static final String PROVIDER_ID = "idp-set-username-from-query-param";
-    private static final IdpSetUsernameFromQueryParam SINGLETON = new IdpSetUsernameFromQueryParam();
+    public static final String PROVIDER_ID = "idp-set-attribute-from-query";
+    private static final IdpSetAttributeFromQueryAuthenticator SINGLETON = new IdpSetAttributeFromQueryAuthenticator();
 
     @Override
     public Authenticator create(KeycloakSession session) {
@@ -73,12 +73,12 @@ public class IdpSetUsernameFromQueryParamAuthenticatorFactory implements Authent
 
     @Override
     public String getDisplayType() {
-        return "Set username from query param";
+        return "Set user attributes from query param on idp first login";
     }
 
     @Override
     public String getHelpText() {
-        return "Set username from query param on IDP account create";
+        return "Set user attributes from query param on IDP account create";
     }
 
     @Override
@@ -90,11 +90,11 @@ public class IdpSetUsernameFromQueryParamAuthenticatorFactory implements Authent
     public List<ProviderConfigProperty> getConfigProperties() {
         return List.of(
                 new ProviderConfigProperty(
-                        IdpSetUsernameFromQueryParam.QUERY_FIELD_CONFIG_VALUE,
-                        "From query param",
-                        "From query param",
-                        ProviderConfigProperty.STRING_TYPE,
-                        "username",
+                        IdpSetAttributeFromQueryAuthenticator.QUERY_FIELD_MAPPING,
+                        "Field mapping",
+                        "From query param to user attribute via : delimiter",
+                        ProviderConfigProperty.MULTIVALUED_STRING_TYPE,
+                        "username:username",
                         false,
                         true
                 )
