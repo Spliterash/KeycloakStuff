@@ -96,6 +96,8 @@ public class HttpRequestValidator extends AbstractStringValidator implements Con
         String attributeKey = castedContext.getAttributeContext().getMetadata().getName();
 
         UserModel targetUser = castedContext.getAttributeContext().getUser();
+        if (targetUser == null) return; // Рега админом или другой прикол, я хз
+
         String actualValue = targetUser.getFirstAttribute(attributeKey);
 
         Boolean onlyOnUpdate = config.getBoolean(ONLY_ON_UPDATE);
