@@ -8,10 +8,13 @@
   первом входе через социальные штуки. Проще говоря, если в урле будет username=aboba, то пользователю автоматом
   подставится это имя, в случае регистрации через например гугл
   `/realms/{realm}/protocol/openid-connect/auth?username=aboba1234`
+* Аунтефикатор `block-google-workspace` - Блокирует логины Google Workspace аккаунтов (любой `hd` claim в id_token).
+  Пропускает только личные Google-аккаунты (`@gmail.com` и т.п.). Использовать в First Broker Login flow
+    * Ключ локализации ошибки: `spliterash.authenticator.google-workspace-blocked-error`
 * Валидатор `cooldown-validator` - Позволяет ограничить частоту смены какого либо поля пользователем, при этом
   администратор ограничению не подвергается
-    * Для локализации надо добавить строку локали с id `spliterash.validation.cooldown-validation-error` в
-      переопределения локализации в Realm -> Localization -> Realm overrides
+    * Ключ локализации: `spliterash.validation.cooldown-validation-error` (можно переопределить
+      через Realm -> Localization -> Realm overrides)
 
       Например: 'Вы сможете обновить {{0}} только через {{1}} секунд'
 * Валидатор `http-request-validator` - Позволяет организовать валидацию проперти через api вызов. Осторожно, значение

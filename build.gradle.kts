@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "ru.spliterash"
-version = "1.0.8"
+version = "1.0.10"
 
 repositories {
     mavenCentral()
@@ -21,6 +21,7 @@ dependencies {
 
 
     // Keycloak dependencies
+    compileOnly("org.keycloak:keycloak-core:$keycloakVersion")
     compileOnly("org.keycloak:keycloak-server-spi:$keycloakVersion")
     compileOnly("org.keycloak:keycloak-server-spi-private:$keycloakVersion")
     compileOnly("org.keycloak:keycloak-services:$keycloakVersion")
